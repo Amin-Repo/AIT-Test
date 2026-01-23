@@ -28,12 +28,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: Run Claude
+      - name: Run Claude Code
+        id: claude
         uses: anthropics/claude-code-action@v1
-        env:
-          DEBUG_CLAUDE_AGENT_SDK: "1"
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
+            --allowedTools "Bash(bun install),Bash(bun test:*),Bash(bun run format),Bash(bun typecheck)"
             --model "claude-opus-4-5"
-            --allowedTools "Bash(npm test)"
